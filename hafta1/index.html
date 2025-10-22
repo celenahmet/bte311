@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTE311 — Hafta 1 · Form Uygulaması</title>
+  <meta name="description" content="Bilgisayar özellikleri için modern, animasyonlu demo formu. Sadece frontend; veri kaydetmez.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Decorative animated blobs -->
+  <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="brand">BTE311 — Hafta 1<span> · Form Uygulaması</span></h1>
+      <nav class="nav">
+        <a href="#" class="nav-link" data-scroll="#form">Form</a>
+        <a href="#" class="nav-link" data-scroll="#faq">SSS</a>
+        <a href="https://github.com/celenahmet" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Bilgisayar Özellik <span class="accent">Formu</span></h2>
+      <p class="subtitle">Bu bir <strong>demo prototipidir</strong>. Frontend tarafıdır; <u>veri kaydetmez</u> veya göndermez.</p>
+      <a class="cta" href="#" data-scroll="#form">Formu Doldur</a>
+    </section>
+
+    <section id="form" class="card">
+      <form id="pcForm" novalidate>
+        <fieldset>
+          <legend>Kişisel Bilgiler</legend>
+          <div class="grid two">
+            <div class="field">
+              <label for="name">Ad Soyad</label>
+              <input id="name" name="name" type="text" placeholder="Adınız Soyadınız" autocomplete="name" required>
+              <small class="hint">Zorunlu alan</small>
+            </div>
+            <div class="field">
+              <label for="email">E‑posta</label>
+              <input id="email" name="email" type="email" placeholder="ornek@posta.com" autocomplete="email">
+              <small class="hint">İsteğe bağlı</small>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Cihaz Bilgileri</legend>
+          <div class="grid two">
+            <div class="field">
+              <label for="os">İşletim Sistemi</label>
+              <select id="os" name="os" required>
+                <option value="" selected disabled>Seçiniz</option>
+                <option>Windows</option>
+                <option>macOS</option>
+                <option>Linux</option>
+                <option>Diğer</option>
+              </select>
+              <small class="hint">Zorunlu alan</small>
+            </div>
+            <div class="field">
+              <label for="purchaseYear">Satın Alma Yılı</label>
+              <input id="purchaseYear" name="purchaseYear" type="number" min="2005" max="2025" step="1" placeholder="2023">
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="cpu">İşlemci (CPU)</label>
+              <input id="cpu" name="cpu" type="text" placeholder="Örn: Intel i5‑12400 / Apple M2 / Ryzen 7 5800H">
+            </div>
+            <div class="field">
+              <label for="gpuType">Ekran Kartı</label>
+              <select id="gpuType" name="gpuType">
+                <option>Tümleşik (Integrated)</option>
+                <option>Ayrık/Harici (Discrete)</option>
+                <option>Yok</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="gpu">GPU Modeli</label>
+              <input id="gpu" name="gpu" type="text" placeholder="Örn: RTX 3060, Radeon 6600M">
+            </div>
+            <div class="field">
+              <label for="ram">RAM (GB)</label>
+              <div class="range-wrap">
+                <input id="ram" name="ram" type="range" min="2" max="128" step="2" value="16" />
+                <output for="ram" id="ramOut">16 GB</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="storageType">Depolama Türü</label>
+              <select id="storageType" name="storageType">
+                <option>SSD</option>
+                <option>NVMe</option>
+                <option>HDD</option>
+                <option>Hibrit</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="storageSize">Depolama Kapasitesi</label>
+              <div class="combo">
+                <input id="storageSize" name="storageSize" type="number" min="64" max="8192" step="64" placeholder="512">
+                <select id="storageUnit" name="storageUnit">
+                  <option>GB</option>
+                  <option>TB</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="screen">Ekran Boyutu (inç)</label>
+              <input id="screen" name="screen" type="number" step="0.1" min="10" max="49" placeholder="15.6">
+            </div>
+            <div class="field">
+              <label for="resolution">Çözünürlük</label>
+              <select id="resolution" name="resolution">
+                <option>1366×768 (HD)</option>
+                <option>1920×1080 (FHD)</option>
+                <option>2560×1440 (QHD)</option>
+                <option>2880×1800 (Retina-ish)</option>
+                <option>3840×2160 (4K)</option>
+                <option>Diğer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Kullanım Amaçları</label>
+            <div class="chips">
+              <label><input type="checkbox" name="uses" value="Oyun"> Oyun</label>
+              <label><input type="checkbox" name="uses" value="Yazılım Geliştirme"> Yazılım Geliştirme</label>
+              <label><input type="checkbox" name="uses" value="Tasarım/3D"> Tasarım/3D</label>
+              <label><input type="checkbox" name="uses" value="Ofis/İş"> Ofis/İş</label>
+              <label><input type="checkbox" name="uses" value="Video/Fotograf"> Video/Fotoğraf</label>
+              <label><input type="checkbox" name="uses" value="Eğitim"> Eğitim</label>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="budget">Bütçe Tercihi</label>
+              <div class="range-wrap">
+                <input id="budget" name="budget" type="range" min="0" max="100" step="5" value="50" />
+                <output for="budget" id="budgetOut">Orta</output>
+              </div>
+              <small class="hint">0: düşük — 100: çok yüksek (göreceli)</small>
+            </div>
+            <div class="field">
+              <label for="notes">Notlar</label>
+              <textarea id="notes" name="notes" rows="3" placeholder="Eklemek istediğiniz bilgiler..."></textarea>
+            </div>
+          </div>
+
+          <label class="agree">
+            <input type="checkbox" id="agree" required>
+            <span>Bu form bir <strong>demo</strong>dur; bilgilerim kaydedilmeyecek veya gönderilmeyecektir.</span>
+          </label>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn" type="submit">Önizle ve Göster</button>
+          <button class="btn ghost" type="reset">Temizle</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="faq" class="card">
+      <h3>Sıkça Sorulan Sorular</h3>
+      <details>
+        <summary>Bu form verileri nereye gönderiyor?</summary>
+        <p>Hiçbir yere göndermiyor, backend servisi yapılmadı.</p>
+      </details>
+      <details>
+        <summary>Formu GitHub Pages üzerinde yayınlayabilir miyim?</summary>
+        <p>Evet. Bu klasörü bir repoya push edip, <strong>Settings → Pages</strong> üzerinden yayınlayabilirsiniz.</p>
+      </details>
+      <details>
+        <summary>Koyu mod destekli mi?</summary>
+        <p>Evet, sisteminizin tema tercihini otomatik algılar (<code>prefers-color-scheme</code>).</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Ahmet Çelen — Form Uygulaması Demo. <span class="sep">•</span> <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a> <span class="sep">•</span> <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a></p>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="document">
+      <header class="modal-header">
+        <h4 id="modalTitle">Önizleme</h4>
+        <button class="icon-btn" title="Kapat" data-close aria-label="Kapat">✕</button>
+      </header>
+      <div class="modal-body">
+        <p class="muted">Bu, girilen bilgilerin <strong>yerel önizlemesidir</strong>. Hiçbir yere kaydedilmez.</p>
+        <div id="summary" class="summary"></div>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn" data-close>Tamam</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Haftalık Ders Programı</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Haftalık Ders Programı</h1>
+  <table>
+    <caption>Ders Programı Tablosu</caption>
+    <tr>
+      <th>Gün</th>
+      <th>Ders 1</th>
+      <th>Ders 2</th>
+      <th>Ders 3</th>
+      <th>Ders 4</th>
+    </tr>
+    <tr>
+      <td>Pazartesi</td>
+      <td>Web Tasarımı</td>
+      <td>Matematik</td>
+      <td>Algoritmalar</td>
+      <td rowspan="2">Boş Saat</td>
+    </tr>
+    <tr>
+      <td>Salı</td>
+      <td colspan="2">İnternet Programcılığı (Uygulama)</td>
+      <td>İngilizce</td>
+    </tr>
+    <tr>
+      <td>Çarşamba</td>
+      <td>Veritabanı</td>
+      <td>Programlama</td>
+      <td>Fizik</td>
+      <td>Matematik</td>
+    </tr>
+    <tr>
+      <td>Perşembe</td>
+      <td colspan="2">Proje Geliştirme</td>
+      <td>İngilizce</td>
+      <td>Serbest Çalışma</td>
+    </tr>
+    <tr>
+      <td>Cuma</td>
+      <td>Mobil Programlama</td>
+      <td>Web Güvenliği</td>
+      <td colspan="2">Etkinlik / ACM Saati</td>
+    </tr>
+  </table>
+
+  <h1>Lütfen Formu Eksiksiz Doldurunuz</h1>
+  <hr>
+  <form>
+    <h3>Hesap Bilgileriniz</h3>
+    <p>Kullanıcı Adı: <input type="text" name="username" placeholder="Kullanıcı adı giriniz" required></p>
+    <p>E-posta: <input type="email" name="email" placeholder="E-posta giriniz" required></p>
+    <p>Parola: <input type="password" name="password" placeholder="Parola giriniz" required></p>
+
+    <h3>Kişisel Bilgileriniz</h3>
+    <p>Ad: <input type="text" name="ad"></p>
+    <p>Soyad: <input type="text" name="soyad"></p>
+    <p>Şehir:
+      <select name="sehir">
+        <option>Seçiniz</option>
+        <option>Ankara</option>
+        <option>İstanbul</option>
+        <option>Kocaeli</option>
+      </select>
+    </p>
+    <p>Cinsiyet:
+      <input type="radio" name="cinsiyet" value="Erkek"> Erkek
+      <input type="radio" name="cinsiyet" value="Kadın"> Kadın
+    </p>
+    <p>Hobileriniz:
+      <input type="checkbox" name="hobiler" value="Sinema"> Sinema
+      <input type="checkbox" name="hobiler" value="Gezmek"> Gezmek
+      <input type="checkbox" name="hobiler" value="Spor"> Spor
+      <input type="checkbox" name="hobiler" value="Kitap"> Kitap
+    </p>
+    <input type="submit" value="Kaydet">
+  </form>
+</body>
+</html>

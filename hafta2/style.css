@@ -1,44 +1,40 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  margin: 40px;
+/* 1) Harici CSS — yalnızca .ext bölümünü hedefler */
+:root{
+  --acm-700:#5c23a6;   /* koyu mor */
+  --acm-600:#7e3ff2;   /* ana mor */
+  --acm-200:#c7afff;   /* açık mor */
+  --acm-100:#ede6ff;   /* pastel mor */
+  --border:#d6c8ff;
 }
-
-h1 {
-  color: #5c2d91;
-  text-align: center;
+*{ box-sizing:border-box }
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  color:#1a1330;
+  background:linear-gradient(180deg,#faf7ff 0%, #ffffff 100%);
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.ext h2{
+  text-align:center; margin-top:2.75rem; font-size:1.5rem; color:var(--acm-700);
 }
-
-th, td {
-  border: 1px solid #888;
-  padding: 8px;
-  text-align: center;
+.ext .tbl{
+  margin:2rem auto;
+  border-collapse:collapse;
+  width:min(900px,92vw);
+  background:#fff;
+  border:3px solid var(--acm-700);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 8px 18px rgba(92,35,166,.15);
 }
-
-th {
-  background-color: #d1c4e9;
+.ext caption{
+  font-weight:700; font-size:1.25rem; color:var(--acm-700); padding:.9rem 1rem;
 }
-
-caption {
-  caption-side: top;
-  font-weight: bold;
-  margin-bottom: 10px;
+.ext th,.ext td{
+  border:1px solid var(--border);
+  padding:.9rem 1rem; text-align:center; font-size:1rem;
 }
-
-form {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-top: 40px;
-  border-radius: 5px;
+.ext thead th{
+  background:var(--acm-600);
+  color:#fff; font-weight:700;
 }
-
-input, select {
-  margin: 5px;
-}
+.ext tbody tr:nth-child(even){ background:var(--acm-100); }

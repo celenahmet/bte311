@@ -1,38 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTE311 — Hafta 3</title>
-  <link rel="stylesheet" href="../assets/site.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Görev 2 – 3 div ile daireler</title>
+  <style>
+    /* Sayfayı ortala ve sade bir arka plan ver */
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      background: #f5f5f7;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* ÜÇ DAİRE = ÜÇ DIV */
+    .c {
+      position: absolute;            /* Ortayı referans alacağız */
+      left: 50%;
+      top: 50%;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      opacity: 0.75;                 /* Şeffaflık */
+      mix-blend-mode: multiply;      /* Kesişimleri belirginleştirir */
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+
+    /* Renkler (görseldeki gibi turuncu, mavi, sarı) */
+    .c1 { background: #c74a2b; transform: translate(-180px, -70px); } /* sol/üst */
+    .c2 { background: #263fbb; transform: translate( -20px, -70px); } /* sağ/üst */
+    .c3 { background: #c2a10b; transform: translate(-100px,  60px); } /* alt/orta */
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">BTE311 <span class="accent">Hafta 3</span></div>
-      <nav class="nav">
-        <a href="../index.html">Ana Sayfa</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="breadcrumb"><a href="../index.html">bte311</a> / hafta3</div>
-    <section class="content">
-      <h2>Hafta 3</h2>
-      <p><strong>Durum:</strong> Ödev bekleniyor.</p>
-      <p>Bu sayfa, ilgili haftanın ödevi eklendiğinde güncellenecektir.</p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2025 Ahmet Çelen · BÖTE</span>
-      <span class="sep">•</span>
-      <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">•</span>
-      <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </footer>
+  <div class="c c1"></div>
+  <div class="c c2"></div>
+  <div class="c c3"></div>
 </body>
 </html>

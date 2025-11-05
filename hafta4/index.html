@@ -1,124 +1,222 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hacettepe BÖTE – Simetrik Transparan Katmanlar</title>
-<style>
-  :root{
-    --c1: rgba(255,0,0,.10);
-    --c2: rgba(255,0,0,.14);
-    --c3: rgba(255,0,0,.18);
-    --c4: rgba(255,0,0,.22);
-    --c5: rgba(255,0,0,.26);
-    --c6: rgba(255,0,0,.30);
-    --c7: rgba(255,0,0,.34);
-    --c8: rgba(255,0,0,.38);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ödev 1 – ACM Mor Tema + Görev 2 Daireler</title>
 
-    --stage-w: min(1100px, 92vw);
-    --stage-h: clamp(380px, 60vh, 760px);
-    --card-w: clamp(520px, 70%, 880px);
-    --card-h: clamp(140px, 22vw, 280px);
-    --amp: clamp(120px, 12vw, 240px);
-    --radius: 24px;
-    --shadow: 0 24px 60px rgba(255,0,0,.14);
-  }
+  <!-- 1) Harici CSS -->
+  <link rel="stylesheet" href="style.css" />
 
-  *{ box-sizing: border-box; }
-  html, body{
-    height:100%; margin:0; background:#fff;
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  }
+  <!-- 2) Sayfa içi CSS (yalnız .int bölümüne) -->
+  <style>
+    :root{
+      --acm-700:#5c23a6;   /* koyu mor */
+      --acm-600:#7e3ff2;   /* ana mor */
+      --acm-200:#c7afff;   /* açık mor */
+      --acm-100:#ede6ff;   /* pastel mor */
+      --border:#d6c8ff;
+    }
 
-  .hero{
-    min-height:100vh;
-    display:grid;
-    place-items:center;
-    position:relative;
-    overflow:hidden;
-  }
+    .int .tbl{
+      margin:2rem auto;
+      border-collapse:collapse;
+      width:min(900px,92vw);
+      background:#fff;
+      border:3px solid var(--acm-700);
+      border-radius:10px; overflow:hidden;
+      box-shadow:0 8px 18px rgba(92,35,166,.15);
+    }
+    .int caption{
+      font:700 1.25rem/1.2 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      padding:.9rem 1rem; color:var(--acm-700);
+    }
+    .int th,.int td{
+      border:1px solid var(--border);
+      padding:.9rem 1rem; text-align:center; font-size:1rem;
+    }
+    .int thead th{
+      background:var(--acm-600); color:#fff; font-weight:700;
+    }
+    .int tbody tr:nth-child(even){ background:var(--acm-100); }
+    .int h2{ text-align:center; margin-top:3.25rem; font-size:1.5rem }
 
-  .stage{
-    position:absolute;
-    width:var(--stage-w);
-    height:var(--stage-h);
-    display:grid;
-    place-items:center;
-    pointer-events:none;
-  }
+    /* Sayfa üst başlıkları */
+    header h1{
+      font-size:2.2rem; text-align:center; margin:1.25rem 0 .25rem;
+      color:var(--acm-700); letter-spacing:.2px;
+    }
+    .explain{ text-align:center; color:#5a5a6b; margin:0 0 1.2rem; }
 
-  .layer{
-    position:absolute;
-    width:var(--card-w);
-    height:var(--card-h);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    will-change: transform, opacity;
-    animation: moveSym linear infinite;
-  }
-
-  /* --- KATMANLAR AYNEN KALIYOR (değiştirmedim) --- */
-
-  .l0{   --tx: calc(var(--amp) * 1.000);  --ty: calc(var(--amp) * 0.000);  background:var(--c1); animation-duration:16s; animation-delay:-0s;  transform: rotate(  2deg); }
-  .l45{  --tx: calc(var(--amp) * 0.707);  --ty: calc(var(--amp) * 0.707);  background:var(--c2); animation-duration:18s; animation-delay:-1.2s; transform: rotate( -4deg); }
-  .l90{  --tx: calc(var(--amp) * 0.000);  --ty: calc(var(--amp) * 1.000);  background:var(--c3); animation-duration:20s; animation-delay:-2.4s; transform: rotate(  6deg); }
-  .l135{ --tx: calc(var(--amp) * -0.707); --ty: calc(var(--amp) * 0.707);  background:var(--c4); animation-duration:22s; animation-delay:-3.6s; transform: rotate( -6deg); }
-  .l180{ --tx: calc(var(--amp) * -1.000); --ty: calc(var(--amp) * 0.000);  background:var(--c5); animation-duration:19s; animation-delay:-4.8s; transform: rotate( 10deg); }
-  .l225{ --tx: calc(var(--amp) * -0.707); --ty: calc(var(--amp) * -0.707); background:var(--c6); animation-duration:17s; animation-delay:-6.0s; transform: rotate( -8deg); }
-  .l270{ --tx: calc(var(--amp) * 0.000);  --ty: calc(var(--amp) * -1.000); background:var(--c7); animation-duration:21s; animation-delay:-7.2s; transform: rotate(  4deg); }
-  .l315{ --tx: calc(var(--amp) * 0.707);  --ty: calc(var(--amp) * -0.707); background:var(--c8); animation-duration:24s; animation-delay:-8.4s; transform: rotate(  0deg); }
-
-  @keyframes moveSym{
-    0%   { transform: translate(calc(var(--tx) * -1), calc(var(--ty) * -1)); opacity:.96; }
-    50%  { transform: translate(var(--tx), var(--ty)); opacity:1; }
-    100% { transform: translate(calc(var(--tx) * -1), calc(var(--ty) * -1)); opacity:.96; }
-  }
-
-  /* === YAZI BLOĞU DÜZENLENDİ === */
-  .content{
-    position:relative;
-    text-align:center;
-    color:#fff;
-    text-shadow:0 2px 10px rgba(0,0,0,.18);
-    transform: translateY(40px); /* yazıyı biraz aşağı aldık */
-  }
-
-  h1{
-    margin:0;
-    font-weight:900;
-    font-size:clamp(2.6rem, 8vw, 6rem);
-    letter-spacing:.3px;
-  }
-
-  p{
-    margin-top:0.4rem; /* aradaki açıklık azaltıldı */
-    font-weight:500;
-    font-size:clamp(1rem, 2.3vw, 1.4rem);
-    color:rgba(255,255,255,.96);
-  }
-
-  @media (prefers-reduced-motion: reduce){ .layer{ animation:none; } }
-</style>
+    /* Görev 2 – daire alanı sadece bu bölümde geçerli */
+    #circles-wrapper{
+      height:520px; position:relative; display:grid; place-items:center;
+      background:linear-gradient(180deg,#faf7ff 0%, #ffffff 100%);
+      border-top:1px dashed var(--border);
+      margin-top:2.5rem;
+    }
+    #circles-wrapper .c{
+      position:absolute; left:50%; top:50%;
+      width:260px; height:260px; border-radius:50%;
+      opacity:.85; mix-blend-mode:multiply;
+      box-shadow:0 20px 50px rgba(92,35,166,.2);
+    }
+    /* 3 farklı mor GRADIENT baloncuk */
+    #circles-wrapper .c1{
+      transform:translate(-180px,-70px);
+      background:linear-gradient(135deg,#c7afff 0%, #7e3ff2 55%, #5c23a6 100%);
+    }
+    #circles-wrapper .c2{
+      transform:translate(-20px,-70px);
+      background:linear-gradient(135deg,#ede6ff 0%, #a37cf8 45%, #5c23a6 100%);
+    }
+    #circles-wrapper .c3{
+      transform:translate(-100px,60px);
+      background:linear-gradient(135deg,#d9c6ff 0%, #7e3ff2 50%, #4c1c8b 100%);
+    }
+  </style>
 </head>
 <body>
-  <section class="hero">
+  <header>
+    <h1>Ödev 1</h1>
+    <p class="explain">Aynı tablo üç farklı CSS yaklaşımıyla (harici, sayfa-içi, satır-içi) gösterilmiştir.</p>
+  </header>
 
-    <div class="stage" aria-hidden="true">
-      <div class="layer l0"></div>
-      <div class="layer l45"></div>
-      <div class="layer l90"></div>
-      <div class="layer l135"></div>
-      <div class="layer l180"></div>
-      <div class="layer l225"></div>
-      <div class="layer l270"></div>
-      <div class="layer l315"></div>
-    </div>
-
-    <div class="content">
-      <h1>Hacettepe BÖTE</h1>
-      <p>Öğretim teknolojileri ve bilişim teknolojileri eğitimi için en iyi adres.</p>
-    </div>
-
+  <!-- ====================== 1) HARİCİ CSS ====================== -->
+  <section class="ext">
+    <h2>1. Tablo: Harici CSS Dosyası Kullanımı</h2>
+    <table class="tbl">
+      <caption>Ders Programı Tablosu</caption>
+      <thead>
+        <tr>
+          <th>Gün</th><th>Ders 1</th><th>Ders 2</th><th>Ders 3</th><th>Ders 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pazartesi</td><td>Web Tasarımı</td><td>Matematik</td><td>Algoritmalar</td>
+          <td rowspan="2">Boş Saat</td>
+        </tr>
+        <tr>
+          <td>Salı</td><td colspan="2">İnternet Programcılığı (Uygulama)</td><td>İngilizce</td>
+        </tr>
+        <tr>
+          <td>Çarşamba</td><td>Veritabanı</td><td>Programlama</td><td>Fizik</td><td>Matematik</td>
+        </tr>
+        <tr>
+          <td>Perşembe</td><td colspan="2">Proje Geliştirme</td><td>İngilizce</td><td>Serbest Çalışma</td>
+        </tr>
+        <tr>
+          <td>Cuma</td><td>Mobil Programlama</td><td>Web Güvenliği</td><td colspan="2">Etkinlik / ACM Saati</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
+
+  <!-- ====================== 2) SAYFA İÇİ CSS ====================== -->
+  <section class="int">
+    <h2>2. Tablo: Sayfa İçi CSS Kullanımı</h2>
+    <table class="tbl">
+      <caption>Ders Programı Tablosu</caption>
+      <thead>
+        <tr>
+          <th>Gün</th><th>Ders 1</th><th>Ders 2</th><th>Ders 3</th><th>Ders 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pazartesi</td><td>Web Tasarımı</td><td>Matematik</td><td>Algoritmalar</td>
+          <td rowspan="2">Boş Saat</td>
+        </tr>
+        <tr>
+          <td>Salı</td><td colspan="2">İnternet Programcılığı (Uygulama)</td><td>İngilizce</td>
+        </tr>
+        <tr>
+          <td>Çarşamba</td><td>Veritabanı</td><td>Programlama</td><td>Fizik</td><td>Matematik</td>
+        </tr>
+        <tr>
+          <td>Perşembe</td><td colspan="2">Proje Geliştirme</td><td>İngilizce</td><td>Serbest Çalışma</td>
+        </tr>
+        <tr>
+          <td>Cuma</td><td>Mobil Programlama</td><td>Web Güvenliği</td><td colspan="2">Etkinlik / ACM Saati</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ====================== 3) SATIR İÇİ CSS ====================== -->
+  <section>
+    <h2 style="text-align:center; margin-top:3.25rem; font-size:1.5rem; color:#5c23a6;">
+      3. Tablo: Satır İçi CSS Kullanımı
+    </h2>
+
+    <table
+      style="
+        margin:2rem auto;border-collapse:collapse;width:min(900px,92vw);
+        background:#fff;border:3px solid #5c23a6;border-radius:10px;overflow:hidden;
+        box-shadow:0 8px 18px rgba(92,35,166,.15);
+      "
+    >
+      <caption style="font:700 1.25rem/1.2 ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial;padding:.9rem 1rem;color:#5c23a6;">
+        Ders Programı Tablosu
+      </caption>
+      <thead>
+        <tr>
+          <th style="background:#7e3ff2;color:#fff;padding:.9rem 1rem;border:1px solid #d6c8ff;">Gün</th>
+          <th style="background:#7e3ff2;color:#fff;padding:.9rem 1rem;border:1px solid #d6c8ff;">Ders 1</th>
+          <th style="background:#7e3ff2;color:#fff;padding:.9rem 1rem;border:1px solid #d6c8ff;">Ders 2</th>
+          <th style="background:#7e3ff2;color:#fff;padding:.9rem 1rem;border:1px solid #d6c8ff;">Ders 3</th>
+          <th style="background:#7e3ff2;color:#fff;padding:.9rem 1rem;border:1px solid #d6c8ff;">Ders 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#ffffff;">
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Pazartesi</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Web Tasarımı</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Matematik</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Algoritmalar</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center" rowspan="2">Boş Saat</td>
+        </tr>
+        <tr style="background:#ede6ff;">
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Salı</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center" colspan="2">İnternet Programcılığı (Uygulama)</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">İngilizce</td>
+        </tr>
+        <tr style="background:#ffffff;">
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Çarşamba</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Veritabanı</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Programlama</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Fizik</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Matematik</td>
+        </tr>
+        <tr style="background:#ede6ff;">
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Perşembe</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center" colspan="2">Proje Geliştirme</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">İngilizce</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Serbest Çalışma</td>
+        </tr>
+        <tr style="background:#ffffff;">
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Cuma</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Mobil Programlama</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center">Web Güvenliği</td>
+          <td style="border:1px solid #d6c8ff;padding:.9rem 1rem;text-align:center" colspan="2">Etkinlik / ACM Saati</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ====================== GÖREV 2 – MOR GRADIENT DAİRELER ====================== -->
+  <section>
+    <h2 style="text-align:center; font-size:1.6rem; color:#5c23a6; margin-top:2.5rem;">
+      Görev 2 – 3 Div ile Mor Gradient Daireler
+    </h2>
+
+    <div id="circles-wrapper">
+      <div class="c c1"></div>
+      <div class="c c2"></div>
+      <div class="c c3"></div>
+    </div>
+  </section>
+
 </body>
 </html>

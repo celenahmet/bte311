@@ -1,38 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTE311 — Hafta 8</title>
-  <link rel="stylesheet" href="../assets/site.css">
+  <title>Atatürk Kartları – 12’li Grid</title>
+  <style>
+    :root{--gap:16px;--radius:16px;--shadow:0 6px 18px rgba(0,0,0,.08);--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--accent:#7E57C2;}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{max-width:1200px;margin:auto;padding:32px 16px}
+    h1{margin:0 0 20px;font-weight:800;text-align:center}
+    .grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+    @media (min-width:576px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (min-width:992px){.grid{grid-template-columns:repeat(4,1fr)}} /* 4-4-4 */
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s}
+    .card:hover{transform:translateY(-2px)}
+    .media{width:100%;aspect-ratio:3/2;position:relative;overflow:hidden;background:#e5e7eb}
+    .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+    .body{padding:14px 16px}
+    .title{margin:0 0 6px;font-size:18px;font-weight:700}
+    .desc{margin:0;color:var(--muted);font-size:14px}
+    .badge{display:inline-block;margin-top:10px;background:rgba(126,87,194,.10);color:var(--accent);padding:4px 8px;border-radius:999px;font-size:12px;font-weight:600}
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">BTE311 <span class="accent">Hafta 8</span></div>
-      <nav class="nav">
-        <a href="../index.html">Ana Sayfa</a>
-      </nav>
-    </div>
-  </header>
+  <div class="wrap">
+    <h1>Mustafa Kemal Atatürk – Kart Galerisi</h1>
 
-  <main class="container">
-    <div class="breadcrumb"><a href="../index.html">bte311</a> / hafta8</div>
-    <section class="content">
-      <h2>Hafta 8</h2>
-      <p><strong>Durum:</strong> Ödev bekleniyor.</p>
-      <p>Bu sayfa, ilgili haftanın ödevi eklendiğinde güncellenecektir.</p>
-    </section>
-  </main>
+    <div class="grid">
+      <!-- 1 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Atatürk portre" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk1930s.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Atatürk%201930%27lar.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Gençlik Yılları</h3>
+          <p class="desc">Selanik’ten Harp Okulu’na uzanan yolculuk.</p>
+          <span class="badge">Biyografi</span>
+        </div>
+      </article>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2025 Ahmet Çelen · BÖTE</span>
-      <span class="sep">•</span>
-      <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">•</span>
-      <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a>
+      <!-- 2 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Samsun 1919" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk%20Samsun%201919.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Bandirma_Vapuru_and_Ataturk.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Samsun’a Çıkış</h3>
+          <p class="desc">19 Mayıs 1919: Milli Mücadele’nin kıvılcımı.</p>
+          <span class="badge">Kurtuluş</span>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card">
+        <div class="media">
+          <img alt="TBMM 1920" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_TBMM_1920.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/First_Grand_National_Assembly_of_Turkey_and_Ataturk.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">TBMM’nin Açılışı</h3>
+          <p class="desc">23 Nisan 1920: Egemenlik ulusundur.</p>
+          <span class="badge">Cumhuriyet</span>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Büyük Taarruz" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Atatürk%20Dumlup%C4%B1nar.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Mustafa_Kemal_Pasha_at_Dumlupinar.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Büyük Taarruz</h3>
+          <p class="desc">1922’de zaferi hazırlayan başkomutan.</p>
+          <span class="badge">Askerî</span>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Cumhuriyet" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_in_1923.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Atatürk%201923%20Ankara.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Cumhuriyet’in İlanı</h3>
+          <p class="desc">29 Ekim 1923: Yeni devlet, yeni ufuklar.</p>
+          <span class="badge">Dönüm Noktası</span>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Harf Devrimi" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_blackboard.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Atatürk%20Latin%20alphabet.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Harf Devrimi</h3>
+          <p class="desc">Eğitimde çağdaşlaşmanın simgesi.</p>
+          <span class="badge">Devrimler</span>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Kadın hakları" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_with_women.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Turkish_women_and_Ataturk.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Kadın Hakları</h3>
+          <p class="desc">Siyasal ve toplumsal alanda eşitlik.</p>
+          <span class="badge">Toplum</span>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Dil ve Tarih" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_Dil_Tarih.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Turk_Dil_Kurumu_Ataturk.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Dil & Tarih</h3>
+          <p class="desc">TDK ve TTK’nın kuruluş vizyonu.</p>
+          <span class="badge">Kurumlar</span>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="card">
+        <div class="media">
+          <img alt="İzmir İktisat Kongresi" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Izmir_Economic_Congress_1923_Ataturk.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Atatürk%20Economy.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">İktisat Kongresi</h3>
+          <p class="desc">Ulusal kalkınma vizyonu.</p>
+          <span class="badge">Ekonomi</span>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Dış politika" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_diplomacy.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_with_diplomats.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Yurtta Sulh, Cihanda Sulh</h3>
+          <p class="desc">Barış odaklı dış politika anlayışı.</p>
+          <span class="badge">Diplomasi</span>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="card">
+        <div class="media">
+          <img alt="Bilim ve eğitim" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_with_students.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk_science.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Bilim & Eğitim</h3>
+          <p class="desc">Akıl ve bilim rehberliğinde ilerleme.</p>
+          <span class="badge">Kültür</span>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="card">
+        <div class="media">
+          <img alt="1938 ve Anıtkabir" data-images="
+https://commons.wikimedia.org/wiki/Special:FilePath/Ataturk1938.jpg?width=1200,
+https://commons.wikimedia.org/wiki/Special:FilePath/Anitkabir%20Ankara.jpg?width=1200,
+https://flagcdn.com/w1280/tr.png">
+        </div>
+        <div class="body">
+          <h3 class="title">Sonsuz Saygı</h3>
+          <p class="desc">Mirası ve ilke-inkılaplarıyla yaşıyor.</p>
+          <span class="badge">Miras</span>
+        </div>
+      </article>
     </div>
-  </footer>
+  </div>
+
+  <script>
+    // Yedekli görsel yükleyici: ilk link hata verirse sıradakini dene.
+    document.querySelectorAll('img[data-images]').forEach(img => {
+      const urls = img.getAttribute('data-images')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+      let i = 0;
+      const tryNext = () => {
+        if (i >= urls.length) return;
+        img.src = urls[i++];
+      };
+      img.addEventListener('error', tryNext);
+      tryNext();
+    });
+  </script>
 </body>
 </html>

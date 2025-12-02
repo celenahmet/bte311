@@ -1,38 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTE311 — Hafta 11</title>
-  <link rel="stylesheet" href="../assets/site.css">
+  <meta charset="utf-8" />
+  <title>Modern Dino Runner - BTE311</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">BTE311 <span class="accent">Hafta 11</span></div>
-      <nav class="nav">
-        <a href="../index.html">Ana Sayfa</a>
-      </nav>
+  <!-- Giriş / Açıklama Paneli -->
+  <div id="introOverlay" class="intro-overlay">
+    <div class="intro-card">
+      <h1 class="intro-title">Modern Dino Runner</h1>
+      <p class="intro-subtitle">
+        Hacettepe Üniversitesi · BTE311 Web Tasarımı · Hazırlayan: Ahmet Çelen
+      </p>
+
+      <div class="intro-body">
+        <h2>Oyun Kuralları</h2>
+        <ul>
+          <li><strong>Boşluk (⎵)</strong> veya <strong>Yukarı Ok (↑)</strong> → Zıpla</li>
+          <li><strong>Aşağı Ok (↓)</strong> → Eğil (duck)</li>
+          <li><strong>Game Over</strong> → Boşluk ile yeniden başlat</li>
+          <li><strong>Mobil</strong> → Ekrana dokunarak zıpla</li>
+        </ul>
+
+        <p class="intro-text">
+          Karakter sabit bir noktada koşar; zemin ve engeller sola doğru akar.
+          Skor arttıkça oyun hızlanır.
+        </p>
+
+        <p class="intro-hint">
+          Başladıktan sonra bu panel kaybolur, sadece oyun alanı ekranda kalır.
+        </p>
+      </div>
+
+      <button id="startButton" class="intro-button">
+        Oyuna Başla
+      </button>
+      <p class="intro-small-hint">
+        Boşluk veya ↑ tuşuna basarak da başlayabilirsin.
+      </p>
+    </div>
+  </div>
+
+  <!-- Üst Başlık (yalnızca intro ve info modunda görünür) -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1 class="page-title">Modern Dino Runner</h1>
+      <p class="page-subtitle">
+        BTE311 – Web Tasarımı · Modern HTML & Canvas çalışma ortamı · Hazırlayan: Ahmet Çelen
+      </p>
     </div>
   </header>
 
-  <main class="container">
-    <div class="breadcrumb"><a href="../index.html">bte311</a> / hafta11</div>
-    <section class="content">
-      <h2>Hafta 11</h2>
-      <p><strong>Durum:</strong> Ödev bekleniyor.</p>
-      <p>Bu sayfa, ilgili haftanın ödevi eklendiğinde güncellenecektir.</p>
+  <!-- Ana İçerik -->
+  <main class="page-main">
+    <section class="game-panel">
+      <div class="game-shell">
+        <canvas id="game" width="800" height="260"></canvas>
+        <div id="statusText" class="status-text">
+          Oyun için hazır! Başlamak için <strong>Boşluk</strong> veya
+          <strong>Yukarı Ok</strong> tuşuna bas.
+        </div>
+      </div>
+
+      <!-- Bu alt açıklamalar oyun başlayınca gizlenecek -->
+      <div class="info-panel">
+        <h2>Proje Bilgisi</h2>
+        <ul>
+          <li><strong>Ders:</strong> BTE311 – Web Tasarımı</li>
+          <li>
+            <strong>Hazırlayan:</strong> Ahmet Çelen
+          </li>
+          <li>
+            <strong>Ödev:</strong> GitHub’daki JavaScript oyunundan uyarlanan,
+            modern Dino Runner sürümü
+          </li>
+          <li>
+            <strong>Teknoloji:</strong> HTML5 Canvas, CSS3, saf JavaScript
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2025 Ahmet Çelen · BÖTE</span>
-      <span class="sep">•</span>
-      <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">•</span>
-      <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
+  <footer class="page-footer">
+    <p>Modern Dino Runner · Hazırlayan: Ahmet Çelen · BTE311 Web Tasarımı</p>
   </footer>
+
+  <script src="index.js"></script>
 </body>
 </html>

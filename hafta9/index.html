@@ -1,38 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTE311 — Hafta 9</title>
-  <link rel="stylesheet" href="../assets/site.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Lab Görevi Uygulaması</title>
+
+  <style>
+    :root{
+      --bg:#19d3a6;
+      --text:#0b1b16;
+      --line:rgba(0,0,0,.25);
+      --card:rgba(255,255,255,.14);
+      --border:rgba(0,0,0,.2);
+      --shadow:0 18px 40px rgba(0,0,0,.22);
+      --btn:#0b63ff;
+      --btn2:#0a49bd;
+      --r:14px;
+      --r2:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:1280px;margin:auto;padding:28px 22px 44px}
+    h1{margin:0 0 10px;font-size:44px}
+    h2{margin:0 0 14px;font-size:32px}
+    .divider{height:2px;background:var(--line);margin:18px 0 22px}
+
+    .top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+    }
+
+    .note{
+      font-size:14px;
+      background:rgba(255,255,255,.2);
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      max-width:800px;
+    }
+
+    button{
+      border:0;
+      padding:10px 14px;
+      font-weight:700;
+      border-radius:10px;
+      cursor:pointer;
+      background:var(--btn);
+      color:#fff;
+      box-shadow:0 10px 18px rgba(0,0,0,.18);
+    }
+    button:hover{background:var(--btn2)}
+    button.secondary{background:rgba(0,0,0,.25)}
+
+    .heroImg{
+      width:460px;
+      max-width:100%;
+      aspect-ratio:16/9;
+      border-radius:var(--r2);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:2px solid var(--border);
+    }
+    .heroImg img{width:100%;height:100%;object-fit:cover}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      padding:18px;
+      background:rgba(0,0,0,.14);
+      border-radius:var(--r2);
+      border:2px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:32px}
+      h2{font-size:24px}
+    }
+
+    .card{
+      background:var(--card);
+      padding:14px;
+      border-radius:var(--r);
+      border:2px solid var(--border);
+      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    }
+    .imgBox{
+      aspect-ratio:1/1;
+      border-radius:12px;
+      overflow:hidden;
+      border:2px solid var(--border);
+      position:relative;
+    }
+    .imgBox img{width:100%;height:100%;object-fit:cover}
+
+    .imgError{
+      position:absolute;inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background:rgba(0,0,0,.6);
+      color:#fff;
+      font-size:13px;
+      padding:16px;
+    }
+
+    .actions{display:flex;gap:10px;margin-top:10px}
+    .actions button{width:50%}
+    .hidden{display:none!important}
+  </style>
 </head>
+
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">BTE311 <span class="accent">Hafta 9</span></div>
-      <nav class="nav">
-        <a href="../index.html">Ana Sayfa</a>
-      </nav>
-    </div>
-  </header>
+<div class="wrap">
 
-  <main class="container">
-    <div class="breadcrumb"><a href="../index.html">bte311</a> / hafta9</div>
-    <section class="content">
-      <h2>Hafta 9</h2>
-      <p><strong>Durum:</strong> Ödev bekleniyor.</p>
-      <p>Bu sayfa, ilgili haftanın ödevi eklendiğinde güncellenecektir.</p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2025 Ahmet Çelen · BÖTE</span>
-      <span class="sep">•</span>
-      <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">•</span>
-      <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="top">
+    <div>
+      <h1>Lab Görevi Uygulaması</h1>
+      <div class="note">
+        Not: Görseller harici kaynaklardan rastgele çekilmektedir.
+        Kaynak sitede erişim problemi oluşursa görsel yüklenmeyebilir.
+      </div>
     </div>
-  </footer>
+    <div>
+      <button id="refresh">YENİLE (RASTGELE)</button>
+      <button id="reset" class="secondary">HEPSİNİ GÖSTER</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>1. Rastgele Görsel</h2>
+  <div class="heroImg">
+    <img id="hero">
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>2. Göster / Gizle</h2>
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<script>
+  // ✅ SAĞLAM GÖRSEL HAVUZU (ÇALIŞAN)
+  const IMAGES = [
+    "https://www.timeforkids.com/wp-content/uploads/2024/01/coral_1.jpg?w=640",
+    "https://bizimankaracomtr.teimg.com/crop/1280x720/bizimankara-com-tr/uploads/2024/10/carsi.webp",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/T%C3%BCpra%C5%9F_Stadyumu_20231011_2.jpg/1280px-T%C3%BCpra%C5%9F_Stadyumu_20231011_2.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/T%C3%BCpra%C5%9F_Stadyumu_20231011_3.jpg/2560px-T%C3%BCpra%C5%9F_Stadyumu_20231011_3.jpg",
+    "https://pbs.twimg.com/media/GR4pPfZXUAAo0Ci.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwMMDBAAzaTaKGkNGzZOPwoB2KguUWwmqJ6A&s",
+
+    // yedek stabil kaynaklar
+    "https://upload.wikimedia.org/wikipedia/commons/6/6e/Golde33443.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/5/5f/Alpspix_View.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/1e/Large_Scaled_Forest_Lizard.jpg"
+  ];
+
+  const BG = ["#19d3a6","#ffd166","#60a5fa","#ff6b6b","#22c55e","#b28dff"];
+
+  const hero = document.getElementById("hero");
+  const grid = document.getElementById("grid");
+
+  const rand = a => a[Math.floor(Math.random()*a.length)];
+  const bust = u => u + (u.includes("?") ? "&" : "?") + "cb=" + Date.now();
+
+  function refresh(){
+    document.documentElement.style.setProperty("--bg", rand(BG));
+    hero.src = bust(rand(IMAGES));
+    build();
+  }
+
+  function build(){
+    grid.innerHTML="";
+    [...IMAGES].sort(()=>Math.random()-0.5).slice(0,6).forEach((url,i)=>{
+      const c=document.createElement("div");
+      c.className="card";
+      c.innerHTML=`
+        <div class="imgBox">
+          <img src="${bust(url)}">
+          <div class="imgError">Görsel yüklenemedi</div>
+        </div>
+        <div class="actions">
+          <button>GÖSTER</button>
+          <button>GİZLE</button>
+        </div>
+      `;
+      const box=c.querySelector(".imgBox");
+      const img=c.querySelector("img");
+      const err=c.querySelector(".imgError");
+      img.onerror=()=>err.style.display="flex";
+      c.querySelectorAll("button")[0].onclick=()=>box.classList.remove("hidden");
+      c.querySelectorAll("button")[1].onclick=()=>box.classList.add("hidden");
+      grid.appendChild(c);
+    });
+  }
+
+  document.getElementById("refresh").onclick=refresh;
+  document.getElementById("reset").onclick=()=>document.querySelectorAll(".imgBox").forEach(b=>b.classList.remove("hidden"));
+
+  refresh();
+</script>
 </body>
 </html>

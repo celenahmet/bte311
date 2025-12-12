@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTE311 — Hafta 10</title>
-  <link rel="stylesheet" href="../assets/site.css">
-</head>
-<body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">BTE311 <span class="accent">Hafta 10</span></div>
-      <nav class="nav">
-        <a href="../index.html">Ana Sayfa</a>
-      </nav>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dinamik Tablo</title>
+    <style>
+      table { border-collapse: collapse; }
+      td { border: 1px solid #000; padding: 8px; text-align: center; }
+    </style>
+  </head>
 
-  <main class="container">
-    <div class="breadcrumb"><a href="../index.html">bte311</a> / hafta10</div>
-    <section class="content">
-      <h2>Hafta 10</h2>
-      <p><strong>Durum:</strong> Ödev bekleniyor.</p>
-      <p>Bu sayfa, ilgili haftanın ödevi eklendiğinde güncellenecektir.</p>
-    </section>
-  </main>
+  <body>
+    <h2>Satır / Sütun Girerek Tablo Oluştur</h2>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2025 Ahmet Çelen · BÖTE</span>
-      <span class="sep">•</span>
-      <a href="https://github.com/celenahmet" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">•</span>
-      <a href="https://www.linkedin.com/in/ahmetcelen" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </footer>
-</body>
+    <form method="post">
+      Satır: <input type="number" name="satir" min="1" required>
+      Sütun: <input type="number" name="sutun" min="1" required>
+      <button type="submit">Tablo Oluştur</button>
+    </form>
+
+    <?php
+      if (isset($_POST['satir'], $_POST['sutun'])) {
+
+        $satir = (int) $_POST['satir'];
+        $sutun = (int) $_POST['sutun'];
+
+        echo "<table>";
+
+        for ($i = 0; $i < $satir; $i++) {
+          echo "<tr>";
+
+          for ($j = 0; $j < $sutun; $j++) {
+            $rastgeleSayi = rand(1, 100);
+            echo "<td>" . $rastgeleSayi . "</td>";
+          }
+
+          echo "</tr>";
+        }
+
+        echo "</table>";
+
+      } else {
+        echo "Lütfen satır ve sütun değerlerini girin.";
+      }
+    ?>
+  </body>
 </html>

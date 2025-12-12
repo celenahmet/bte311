@@ -1,47 +1,154 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>Dinamik Tablo</title>
+    <title>Hafta 10 Ödevi</title>
     <style>
-      table { border-collapse: collapse; }
-      td { border: 1px solid #000; padding: 8px; text-align: center; }
-    </style>
-  </head>
-
-  <body>
-    <h2>Satır / Sütun Girerek Tablo Oluştur</h2>
-
-    <form method="post">
-      Satır: <input type="number" name="satir" min="1" required>
-      Sütun: <input type="number" name="sutun" min="1" required>
-      <button type="submit">Tablo Oluştur</button>
-    </form>
-
-    <?php
-      if (isset($_POST['satir'], $_POST['sutun'])) {
-
-        $satir = (int) $_POST['satir'];
-        $sutun = (int) $_POST['sutun'];
-
-        echo "<table>";
-
-        for ($i = 0; $i < $satir; $i++) {
-          echo "<tr>";
-
-          for ($j = 0; $j < $sutun; $j++) {
-            $rastgeleSayi = rand(1, 100);
-            echo "<td>" . $rastgeleSayi . "</td>";
-          }
-
-          echo "</tr>";
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            text-align: center;
+            padding-top: 40px;
+        }
+        h1 {
+            margin-bottom: 40px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 260px;
+        }
+        img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #0077ff;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #005fcc;
         }
 
-        echo "</table>";
+        /* FULLSCREEN MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 38px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-      } else {
-        echo "Lütfen satır ve sütun değerlerini girin.";
-      }
-    ?>
-  </body>
+        /* Alt bilgi */
+        .bottom-links {
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 15px;
+        }
+        .bottom-links a {
+            font-weight: bold;
+            color: #0077ff;
+            text-decoration: none;
+        }
+        .bottom-links a:hover {
+            color: #005fcc;
+        }
+        code {
+            background: #eee;
+            padding: 3px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hafta 10 – PHP Uygulamaları</h1>
+
+<div class="container">
+
+    <!-- Tek Sayılar -->
+    <div class="card">
+        <img src="tek_sayilar.png" alt="Tek Sayılar" onclick="openModal('tek_sayilar.png')">
+        <div class="btn" onclick="openModal('tek_sayilar.png')">Resmi Görüntüle</div>
+    </div>
+
+    <!-- Tablo Oluştur -->
+    <div class="card">
+        <img src="tablo_olustur.png" alt="Tablo Oluştur" onclick="openModal('tablo_olustur.png')">
+        <div class="btn" onclick="openModal('tablo_olustur.png')">Resmi Görüntüle</div>
+    </div>
+
+</div>
+
+<!-- FULLSCREEN IMAGE MODAL -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    <img id="modalImage" src="">
+</div>
+
+<script>
+    function openModal(src) {
+        document.getElementById("modalImage").src = src;
+        document.getElementById("imageModal").style.display = "flex";
+    }
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+</script>
+
+<!-- ALT BİLGİ + PHP LİNKLERİ -->
+<div class="bottom-links">
+    <p><strong>Çalıştırma Ortamı:</strong> macOS 15.5 (24F74) üzerinde Homebrew ile kurulan PHP kullanılmıştır.</p>
+
+    <p>Local geliştirme adresi (örnek):
+        <code>http://localhost:8000/hafta10/</code>
+    </p>
+
+    <p><strong>PHP Uygulamaları:</strong></p>
+    <p>
+        • <a href="tek_sayilar.php">1–100 Arası Tek Sayılar</a><br>
+        • <a href="tablo_olustur.php">Dinamik Tablo Oluşturma</a>
+    </p>
+</div>
+
+</body>
 </html>

@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <title>WEB Programcılığı - Test / Sınav (test1.html)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a30;
+      --muted:#9aa7bd;
+      --text:#e8eef9;
+      --line:#223252;
+
+      --ok:#2dd4bf;
+      --bad:#fb7185;
+      --warn:#fbbf24;
+
+      --input:#0b1730;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(45,212,191,.10), transparent 55%),
+                  radial-gradient(900px 500px at 90% 15%, rgba(251,113,133,.10), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    header{
+      padding: 28px 16px 10px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .title{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(20px, 3.2vw, 30px);
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size: 14px;
+      max-width: 72ch;
+    }
+
+    main{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 16px 40px;
+    }
+
+    form{
+      display:grid;
+      gap:14px;
+    }
+
+    fieldset{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    legend{
+      padding: 0 8px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing:.2px;
+    }
+
+    label{ display:block; margin: 10px 0 6px; color: var(--text); }
+    .row{ display:grid; gap:10px; grid-template-columns: 1fr; }
+    @media (min-width: 820px){
+      .row.two{ grid-template-columns: 1fr 1fr; }
+      .row.three{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--input);
+      color: var(--text);
+      outline: none;
+    }
+    input::placeholder, textarea::placeholder{ color: rgba(154,167,189,.7); }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(45,212,191,.55);
+      box-shadow: 0 0 0 3px rgba(45,212,191,.12);
+    }
+
+    .choice{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.02);
+      margin: 8px 0;
+    }
+    .choice input{ width:auto; margin-top: 3px; }
+
+    .question{
+      margin: 8px 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .qtitle{
+      margin: 0;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .hint{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding: 6px 2px 2px;
+    }
+
+    button{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    button.primary{
+      background: linear-gradient(90deg, rgba(45,212,191,.25), rgba(59,130,246,.18));
+      border-color: rgba(45,212,191,.35);
+    }
+    button.danger{
+      background: linear-gradient(90deg, rgba(251,113,133,.22), rgba(244,63,94,.10));
+      border-color: rgba(251,113,133,.35);
+    }
+    button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .result{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      display:none;
+    }
+    .result.show{ display:block; }
+    .result h2{
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin: 10px 0 0;
+    }
+    .chip{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .chip.ok{ border-color: rgba(45,212,191,.35); color: rgba(45,212,191,.95); }
+    .chip.bad{ border-color: rgba(251,113,133,.35); color: rgba(251,113,133,.95); }
+    .chip.warn{ border-color: rgba(251,191,36,.35); color: rgba(251,191,36,.95); }
+
+    .mark-ok{
+      outline: 2px solid rgba(45,212,191,.55);
+      box-shadow: 0 0 0 4px rgba(45,212,191,.12);
+    }
+    .mark-bad{
+      outline: 2px solid rgba(251,113,133,.55);
+      box-shadow: 0 0 0 4px rgba(251,113,133,.12);
+    }
+    .explain{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 13px;
+      display:none;
+    }
+    .explain.show{ display:block; }
+
+    footer{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 16px 22px;
+      color: rgba(154,167,189,.85);
+      font-size: 12.5px;
+    }
+
+    @media print{
+      body{ background:#fff; color:#000; }
+      fieldset, .result{ box-shadow:none; background:#fff; }
+      input, select, textarea{ background:#fff; color:#000; }
+      button, .actions{ display:none !important; }
+      .result{ display:block !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <div>
+        <h1>WEB Programcılığı - Test / Sınav</h1>
+        <p class="sub">
+          Bu sayfa sadece istemci tarafında çalışır. Form alanları doğrulanır, ardından cevap anahtarına göre değerlendirme yapılır.
+          Sonuçlar ekranda gösterilir.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="resultBox" class="result" aria-live="polite">
+      <h2>Sonuç</h2>
+      <div id="resultText" style="color: var(--muted);"></div>
+      <div class="chips" id="resultChips"></div>
+    </div>
+
+    <form id="examForm" action="#" method="post" novalidate>
+      <fieldset>
+        <legend>Kişisel Bilgiler</legend>
+
+        <div class="row two">
+          <div>
+            <label for="isim">Ad - Soyad</label>
+            <input type="text" id="isim" name="isim" placeholder="Adınız" required minlength="2" maxlength="60" />
+          </div>
+
+          <div>
+            <label for="ogrno">Öğrenci No (sadece rakam)</label>
+            <input type="number" id="ogrno" name="ogrno" placeholder="20250001" required min="1" step="1" />
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="email">E-posta</label>
+            <input type="email" id="email" name="email" placeholder="ornek@eposta.com" required />
+          </div>
+
+          <div>
+            <label for="tel">Telefon (ülke kodu ile)</label>
+            <input type="tel" id="tel" name="tel" placeholder="+90-555-555-5555" pattern="^\+?[0-9\- ]{7,}$" required />
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="site">Kişisel Web (opsiyonel)</label>
+            <input type="url" id="site" name="site" placeholder="https://ornek.com" />
+          </div>
+
+          <div>
+            <label for="sinav_id">Sınav Kodu</label>
+            <input type="text" id="sinav_id" name="sinav_id" value="test1" readonly />
+          </div>
+        </div>
+
+        <p class="hint">Zorunlu alanlar değerlendirme öncesi doğrulanır.</p>
+      </fieldset>
+
+      <fieldset id="fs-q1" data-question="q1">
+        <legend>1) Temel Bilgiler (Çoktan seçmeli — tek doğru)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">HTML hangi amaçla kullanılır?</p>
+
+        <label class="choice"><input type="radio" name="q1" value="a" required /> a) Sunucu taraflı programlama</label>
+        <label class="choice"><input type="radio" name="q1" value="b" /> b) Web sayfası yapısı ve içeriği tanımlamak</label>
+        <label class="choice"><input type="radio" name="q1" value="c" /> c) Veritabanı yönetimi</label>
+        <label class="choice"><input type="radio" name="q1" value="d" /> d) İşletim sistemi çekirdeği</label>
+
+        <div class="explain" data-explain="q1"></div>
+      </fieldset>
+
+      <fieldset id="fs-q2" data-question="q2">
+        <legend>2) Ağ ve İnternet (Birden çok doğru olabilir)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">Aşağıdakilerden hangileri TCP/IP katmanlarıyla ilişkilidir?</p>
+
+        <label class="choice"><input type="checkbox" name="q2" value="a" /> a) Uygulama</label>
+        <label class="choice"><input type="checkbox" name="q2" value="b" /> b) Sunum</label>
+        <label class="choice"><input type="checkbox" name="q2" value="c" /> c) Ağ (Internet)</label>
+        <label class="choice"><input type="checkbox" name="q2" value="d" /> d) Fiziksel</label>
+
+        <p class="hint">Birden çok doğru seçeneği işaretleyebilirsin.</p>
+        <div class="explain" data-explain="q2"></div>
+      </fieldset>
+
+      <fieldset id="fs-q3" data-question="q3">
+        <legend>3) Programlama Mantığı (Kısa cevap)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">Algoritma nedir? Kısa yazınız (maks 200 karakter).</p>
+
+        <textarea id="q3" name="q3" rows="3" maxlength="200" placeholder="Kısa cevap..." required></textarea>
+        <p class="hint">Bu soru anahtar kelime mantığıyla puanlanır (temel kavramları içermesi beklenir).</p>
+        <div class="explain" data-explain="q3"></div>
+      </fieldset>
+
+      <fieldset id="fs-q4" data-question="q4">
+        <legend>4) Veri Tabanı (Seçmeli)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">Bir kişinin ad-soyad bilgisini tutmak için en uygun veri tipi hangisidir?</p>
+
+        <label for="q4">Seçiniz</label>
+        <select id="q4" name="q4" required>
+          <option value="">-- Seçiniz --</option>
+          <optgroup label="Rakamlar">
+            <option value="int">INT</option>
+            <option value="float">FLOAT</option>
+          </optgroup>
+          <optgroup label="Metin">
+            <option value="varchar">VARCHAR</option>
+            <option value="text">TEXT</option>
+          </optgroup>
+        </select>
+
+        <div class="explain" data-explain="q4"></div>
+      </fieldset>
+
+      <fieldset id="fs-q5" data-question="q5">
+        <legend>5) Web Teknolojileri (Sürgülü / sayı ile cevap)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">HTML, CSS ve JavaScript bilginizi 0-10 arasında belirtin</p>
+
+        <div class="row two">
+          <div>
+            <label for="q5range">Sürgü</label>
+            <input type="range" id="q5range" name="q5range" min="0" max="10" value="5" />
+          </div>
+          <div>
+            <label for="q5num">Sayısal</label>
+            <input type="number" id="q5num" name="q5num" min="0" max="10" value="5" required />
+          </div>
+        </div>
+
+        <p class="hint">Sürgü ve sayı alanı eşit olmalıdır. Değerlendirme bunu kontrol eder.</p>
+        <div class="explain" data-explain="q5"></div>
+      </fieldset>
+
+      <fieldset id="fs-q6" data-question="q6">
+        <legend>6) Güvenlik (Doğru/Yanlış)</legend>
+        <p class="question">Soru</p>
+        <p class="qtitle">HTTPS, HTTP'ye göre veriyi şifreler.</p>
+
+        <label class="choice"><input type="radio" name="q6" value="true" required /> Doğru</label>
+        <label class="choice"><input type="radio" name="q6" value="false" /> Yanlış</label>
+
+        <div class="explain" data-explain="q6"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>7) Dosya Yükleme (Opsiyonel)</legend>
+        <p class="question">Bilgi</p>
+        <p class="qtitle">Örnek bir kaynak kod (.txt veya .html) yükleyin (maksimum dosya sayısı 2)</p>
+
+        <input type="file" id="kod" name="kod" accept=".txt,.html,.htm" multiple />
+        <p class="hint">Bu alan değerlendirmeye dahil değildir (backend olmadığı için dosyalar gönderilmez).</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>8) Tarih/Zaman & Randevu</legend>
+
+        <div class="row three">
+          <div>
+            <label for="q8date">Sınav Tarihi</label>
+            <input type="date" id="q8date" name="q8date" required />
+          </div>
+          <div>
+            <label for="q8time">Başlangıç (saat)</label>
+            <input type="time" id="q8time" name="q8time" />
+          </div>
+          <div>
+            <label for="q8datetime">Yerel tarih-saat (teslim)</label>
+            <input type="datetime-local" id="q8datetime" name="q8datetime" />
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="q8month">Sınav dönemi (Ay/Yıl)</label>
+            <input type="month" id="q8month" name="q8month" />
+          </div>
+          <div>
+            <label for="q8week">Hafta numarası</label>
+            <input type="week" id="q8week" name="q8week" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>KVKK</legend>
+        <label class="choice">
+          <input type="checkbox" name="kvkk" value="ok" required />
+          KVKK / Gizlilik politikasını okudum ve kabul ediyorum.
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Ek Bilgiler (Seçmeli)</legend>
+        <label for="notes">Öğretmene not</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="İsteğe bağlı not..."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Durum & Değerler (Statik göstergeler)</legend>
+        <p class="question">İlerleme (örnek)</p>
+        <progress value="65" max="100">65%</progress>
+        <p class="question" style="margin-top:10px;">Uygunluk metriği</p>
+        <meter value="0.7" min="0" max="1">0.7</meter>
+      </fieldset>
+
+      <details>
+        <summary style="cursor:pointer; color: var(--muted); font-weight:700; margin: 6px 0 0;">
+          Değerlendirme ve Notlar (gizli/isteğe bağlı)
+        </summary>
+        <div style="margin-top:10px;">
+          <p class="hint">Bu alan öğretmen tarafından doldurulabilir.</p>
+          <label for="teacher_note">Öğretmen notu</label>
+          <textarea id="teacher_note" name="teacher_note" rows="3"></textarea>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button type="button" class="danger" id="resetBtn">Temizle</button>
+        <button type="button" id="printBtn">Yazdır</button>
+        <button type="button" class="primary" id="gradeBtn">Değerlendir</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>Dosya: <code>test1.html</code> — İstemci tarafı değerlendirme (backend yok).</p>
+  </footer>
+
+  <script>
+    // ======= CEVAP ANAHTARI / PUANLAMA =======
+    // Dilersen burayı değiştirerek soruları kolayca güncelleyebilirsin.
+    const ANSWER_KEY = {
+      q1: { type: "single", correct: ["b"], points: 10, explanation: "HTML; web sayfasının yapısını ve içeriğini tanımlar." },
+
+      // TCP/IP (basitleştirilmiş) katmanları: Uygulama, İnternet, Erişim (Link). "Sunum" OSI katmanıdır.
+      // "Fiziksel" doğrudan TCP/IP katmanı diye geçmez (erişim katmanı içinde yer alır) -> bu testte yanlış sayıyoruz.
+      q2: { type: "multi",  correct: ["a","c"], points: 15, explanation: "TCP/IP’de (özet) Uygulama ve İnternet katmanları vardır. Sunum OSI’dır; Fiziksel TCP/IP’de ayrı katman olarak geçmez." },
+
+      // Kısa cevap: anahtar kelime kontrolü (tam NLP değil).
+      q3: {
+        type: "text",
+        points: 15,
+        keywordsAny: ["adım", "basamak", "sıra", "sıralı", "sonlu", "problem", "çözüm", "talimat", "yönerge"],
+        keywordsMustOneOf: ["problem", "çözüm", "talimat", "yönerge"],
+        minLen: 20,
+        explanation: "Algoritma: Bir problemi çözmek için sonlu ve sıralı adımlardan oluşan talimatlar dizisidir."
+      },
+
+      // Ad-soyad için: VARCHAR daha uygundur (TEXT gereksiz büyük).
+      q4: { type: "select", correct: ["varchar"], points: 10, explanation: "Kısa metin alanları için genelde VARCHAR tercih edilir." },
+
+      // Sürgü ve sayı eşit mi? + aralık kontrolü
+      q5: { type: "rangeMatch", points: 10, explanation: "Sürgü değeri ile sayısal değer aynı olmalıdır (0-10)." },
+
+      q6: { type: "single", correct: ["true"], points: 10, explanation: "HTTPS; TLS/SSL ile iletişimi şifreler." }
+    };
+
+    const form = document.getElementById("examForm");
+    const gradeBtn = document.getElementById("gradeBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const printBtn = document.getElementById("printBtn");
+
+    const resultBox = document.getElementById("resultBox");
+    const resultText = document.getElementById("resultText");
+    const resultChips = document.getElementById("resultChips");
+
+    // q5 senkron
+    const q5range = document.getElementById("q5range");
+    const q5num = document.getElementById("q5num");
+    q5range.addEventListener("input", () => q5num.value = q5range.value);
+    q5num.addEventListener("input", () => {
+      const v = clampInt(q5num.value, 0, 10);
+      q5num.value = v;
+      q5range.value = v;
+    });
+
+    function clampInt(val, min, max){
+      let n = parseInt(val, 10);
+      if (Number.isNaN(n)) n = min;
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function clearMarks(){
+      document.querySelectorAll("fieldset[data-question]").forEach(fs => {
+        fs.classList.remove("mark-ok", "mark-bad");
+      });
+      document.querySelectorAll(".explain").forEach(el => {
+        el.classList.remove("show");
+        el.textContent = "";
+      });
+    }
+
+    function showExplain(qid, ok, explanation, detail){
+      const box = document.querySelector(`.explain[data-explain="${qid}"]`);
+      if (!box) return;
+      const status = ok ? "Doğru" : "Yanlış";
+      const extra = detail ? `\n\nNot: ${detail}` : "";
+      box.textContent = `${status}. ${explanation}${extra}`;
+      box.classList.add("show");
+    }
+
+    function setFieldsetMark(qid, ok){
+      const fs = document.querySelector(`fieldset[data-question="${qid}"]`);
+      if (!fs) return;
+      fs.classList.toggle("mark-ok", ok);
+      fs.classList.toggle("mark-bad", !ok);
+    }
+
+    function getSelectedRadio(name){
+      const el = form.querySelector(`input[name="${CSS.escape(name)}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function getCheckedValues(name){
+      return Array.from(form.querySelectorAll(`input[name="${CSS.escape(name)}"]:checked`)).map(x => x.value);
+    }
+
+    function normalizeText(s){
+      return (s || "")
+        .toLowerCase()
+        .replaceAll("ı","i")
+        .replaceAll("İ","i")
+        .trim();
+    }
+
+    function validateNativeForm(){
+      // Native constraint validation (required, pattern, min/max, email, url vs.)
+      // novalidate var ama biz yine de reportValidity ile kullanıcıya hatayı gösteriyoruz.
+      const ok = form.checkValidity();
+      if (!ok) form.reportValidity();
+      return ok;
+    }
+
+    function grade(){
+      clearMarks();
+
+      // 1) Form doğrulama
+      if (!validateNativeForm()) {
+        resultBox.classList.remove("show");
+        return;
+      }
+
+      // 2) Sınav doğrulama + puan
+      let total = 0;
+      let earned = 0;
+
+      const perQuestion = [];
+      Object.keys(ANSWER_KEY).forEach(qid => {
+        const conf = ANSWER_KEY[qid];
+        total += conf.points;
+
+        let ok = false;
+        let detail = "";
+
+        if (conf.type === "single"){
+          const val = getSelectedRadio(qid);
+          ok = val !== null && conf.correct.includes(val);
+          if (!ok) detail = `Doğru cevap: ${conf.correct.join(", ")}`;
+        }
+
+        if (conf.type === "multi"){
+          const vals = getCheckedValues(qid);
+          const sorted = [...vals].sort().join(",");
+          const corr = [...conf.correct].sort().join(",");
+          ok = sorted === corr;
+          if (!ok) detail = `Doğru kombinasyon: ${conf.correct.join(", ")}`;
+        }
+
+        if (conf.type === "select"){
+          const val = form.querySelector(`#${CSS.escape(qid)}`)?.value || "";
+          ok = conf.correct.includes(val);
+          if (!ok) detail = `Doğru cevap: ${conf.correct.join(", ")}`;
+        }
+
+        if (conf.type === "text"){
+          const raw = (form.querySelector(`#${CSS.escape(qid)}`)?.value || "");
+          const txt = normalizeText(raw);
+
+          const lenOk = txt.length >= (conf.minLen || 0);
+          const mustOk = (conf.keywordsMustOneOf || []).some(k => txt.includes(normalizeText(k)));
+          const anyCount = (conf.keywordsAny || []).filter(k => txt.includes(normalizeText(k))).length;
+
+          // Basit puan mantığı: minimum uzunluk + en az bir "must" + en az 2 anahtar kelime (any)
+          ok = lenOk && mustOk && anyCount >= 2;
+
+          if (!lenOk) detail = `Cevap çok kısa (en az ${conf.minLen} karakter önerilir).`;
+          else if (!mustOk) detail = `“problem/çözüm/talimat/yönerge” gibi temel bir kavramı eklemen bekleniyordu.`;
+          else if (anyCount < 2) detail = `Cevabına “adım/sıra/sonlu” gibi anahtar kelimeler ekleyerek güçlendirebilirsin.`;
+        }
+
+        if (conf.type === "rangeMatch"){
+          const r = parseInt(q5range.value, 10);
+          const n = parseInt(q5num.value, 10);
+          const inRange = Number.isInteger(r) && Number.isInteger(n) && r >= 0 && r <= 10 && n >= 0 && n <= 10;
+          ok = inRange && (r === n);
+          if (!ok) detail = "Sürgü ve sayısal değer eşleşmeli (0-10).";
+        }
+
+        if (ok) earned += conf.points;
+
+        setFieldsetMark(qid, ok);
+        showExplain(qid, ok, conf.explanation, detail);
+
+        perQuestion.push({ qid, ok, points: conf.points });
+      });
+
+      // 3) Sonuç ekranı
+      const percent = total === 0 ? 0 : Math.round((earned / total) * 100);
+      const correctCount = perQuestion.filter(x => x.ok).length;
+      const wrongCount = perQuestion.length - correctCount;
+
+      resultText.textContent =
+        `Puan: ${earned}/${total} (%${percent}). Doğru: ${correctCount}, Yanlış: ${wrongCount}.`;
+
+      resultChips.innerHTML = "";
+      resultChips.appendChild(makeChip(`%${percent}`, percent >= 70 ? "ok" : (percent >= 50 ? "warn" : "bad")));
+      resultChips.appendChild(makeChip(`Doğru: ${correctCount}`, "ok"));
+      resultChips.appendChild(makeChip(`Yanlış: ${wrongCount}`, wrongCount === 0 ? "ok" : "bad"));
+
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function makeChip(text, cls){
+      const el = document.createElement("span");
+      el.className = `chip ${cls || ""}`.trim();
+      el.textContent = text;
+      return el;
+    }
+
+    gradeBtn.addEventListener("click", grade);
+
+    resetBtn.addEventListener("click", () => {
+      form.reset();
+      clearMarks();
+      resultBox.classList.remove("show");
+      // q5 sync reset
+      q5num.value = q5range.value;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    printBtn.addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>

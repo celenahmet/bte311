@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>WEB Programcılığı - Test / Sınav (test1.html)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+  <h1>WEB Programcılığı - Test / Sınav</h1>
+
+  <form id="examForm" action="#" method="post" novalidate>
+
+    <fieldset>
+      <legend>Başlangıç</legend>
+
+      <label for="email">E-posta:</label><br>
+      <input type="email" id="email" name="email" placeholder="ornek@eposta.com" required>
+      <br><br>
+
+      <input type="hidden" name="sinav_id" value="test1">
+    </fieldset>
+
+    <fieldset>
+      <legend>1) Temel Bilgiler (Tek doğru)</legend>
+
+      <p>Soru: HTML hangi amaçla kullanılır?</p>
+      <label><input type="radio" name="q1" value="a" required> a) Sunucu taraflı programlama</label><br>
+      <label><input type="radio" name="q1" value="b"> b) Web sayfası yapısı ve içeriği tanımlamak</label><br>
+      <label><input type="radio" name="q1" value="c"> c) Veritabanı yönetimi</label><br>
+      <label><input type="radio" name="q1" value="d"> d) İşletim sistemi çekirdeği</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>2) Ağ ve İnternet (Birden çok doğru olabilir)</legend>
+      <p>Soru: Aşağıdakilerden hangileri TCP/IP katmanlarıyla ilişkilidir?</p>
+      <label><input type="checkbox" name="q2" value="a"> a) Uygulama</label><br>
+      <label><input type="checkbox" name="q2" value="b"> b) Sunum</label><br>
+      <label><input type="checkbox" name="q2" value="c"> c) Ağ (Internet)</label><br>
+      <label><input type="checkbox" name="q2" value="d"> d) Fiziksel</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>3) Programlama Mantığı (Kısa cevap)</legend>
+      <p>Soru: Algoritma nedir? Kısa yazınız (maks 200 karakter).</p>
+      <textarea id="q3" name="q3" rows="3" maxlength="200" placeholder="Kısa cevap..." required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4) Veri Tabanı (Seçmeli)</legend>
+      <p>Soru: Bir kişinin ad-soyad bilgisini tutmak için en uygun veri tipi hangisidir?</p>
+
+      <label for="q4">Seçiniz:</label><br>
+      <select id="q4" name="q4" required>
+        <option value="">-- Seçiniz --</option>
+        <optgroup label="Rakamlar">
+          <option value="int">INT</option>
+          <option value="float">FLOAT</option>
+        </optgroup>
+        <optgroup label="Metin">
+          <option value="varchar">VARCHAR</option>
+          <option value="text">TEXT</option>
+        </optgroup>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>5) Web Teknolojileri (Sürgü / Sayı eşleşmeli)</legend>
+
+      <label for="q5range">Soru: Bilgi seviyenizi 0-10 arasında belirtin:</label><br>
+      <input type="range" id="q5range" name="q5range" min="0" max="10" value="5">
+      <br><br>
+
+      <label for="q5num">Aynı sorunun sayısal karşılığı:</label><br>
+      <input type="number" id="q5num" name="q5num" min="0" max="10" value="5" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>6) Güvenlik (Doğru/Yanlış)</legend>
+      <p>Soru: HTTPS, HTTP'ye göre veriyi şifreler.</p>
+      <label><input type="radio" name="q6" value="true" required> Doğru</label><br>
+      <label><input type="radio" name="q6" value="false"> Yanlış</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>KVKK</legend>
+      <label><input type="checkbox" name="kvkk" value="ok" required> KVKK / Gizlilik politikasını okudum ve kabul ediyorum.</label>
+    </fieldset>
+
+    <p>
+      <button type="button" id="gradeBtn">Kontrol Et</button>
+      <button type="reset" id="resetBtn">Temizle</button>
+    </p>
+
+    <div id="result" style="display:none;">
+      <hr>
+      <h2>Sonuç</h2>
+      <p id="resultText"></p>
+    </div>
+
+  </form>
+
+  <footer>
+    <p>Dosya: <code>test1.html</code></p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("examForm");
+    const gradeBtn = document.getElementById("gradeBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const resultBox = document.getElementById("result");
+    const resultText = document.getElementById("resultText");
+
+    const q5range = document.getElementById("q5range");
+    const q5num = document.getElementById("q5num");
+
+    // Range-number senkron
+    q5range.addEventListener("input", () => { q5num.value = q5range.value; });
+    q5num.addEventListener("input", () => {
+      let v = parseInt(q5num.value, 10);
+      if (Number.isNaN(v)) v = 0;
+      if (v < 0) v = 0;
+      if (v > 10) v = 10;
+      q5num.value = v;
+      q5range.value = v;
+    });
+
+    // Cevap anahtarı (kullanıcıya gösterilmez)
+    const ANSWERS = {
+      q1: { type: "single", correct: ["b"], points: 10 },
+      q2: { type: "multi",  correct: ["a","c"], points: 15 },
+      q3: {
+        type: "text",
+        points: 15,
+        minLen: 20,
+        mustOneOf: ["problem", "çözüm", "talimat", "yönerge"],
+        any: ["adım", "basamak", "sıra", "sıralı", "sonlu", "problem", "çözüm", "talimat", "yönerge"]
+      },
+      q4: { type: "select", correct: ["varchar"], points: 10 },
+      q5: { type: "rangeMatch", points: 10 },
+      q6: { type: "single", correct: ["true"], points: 10 }
+    };
+
+    function normalizeTR(s){
+      return (s || "")
+        .toLowerCase()
+        .replaceAll("ı","i")
+        .replaceAll("İ","i")
+        .trim();
+    }
+
+    function getRadio(name){
+      const el = form.querySelector(`input[name="${CSS.escape(name)}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function getChecks(name){
+      return Array.from(form.querySelectorAll(`input[name="${CSS.escape(name)}"]:checked`)).map(x => x.value);
+    }
+
+    function validateForm(){
+      const ok = form.checkValidity();
+      if (!ok) form.reportValidity();
+      return ok;
+    }
+
+    function grade(){
+      resultBox.style.display = "none";
+      resultText.textContent = "";
+
+      if (!validateForm()) return;
+
+      let total = 0;
+      let earned = 0;
+
+      for (const qid of Object.keys(ANSWERS)){
+        const cfg = ANSWERS[qid];
+        total += cfg.points;
+
+        let ok = false;
+
+        if (cfg.type === "single"){
+          const v = getRadio(qid);
+          ok = v !== null && cfg.correct.includes(v);
+        }
+
+        if (cfg.type === "multi"){
+          const vals = getChecks(qid).slice().sort().join(",");
+          const corr = cfg.correct.slice().sort().join(",");
+          ok = vals === corr;
+        }
+
+        if (cfg.type === "select"){
+          const v = document.getElementById(qid).value;
+          ok = cfg.correct.includes(v);
+        }
+
+        if (cfg.type === "rangeMatch"){
+          const r = parseInt(q5range.value, 10);
+          const n = parseInt(q5num.value, 10);
+          const inRange = Number.isInteger(r) && Number.isInteger(n) && r >= 0 && r <= 10 && n >= 0 && n <= 10;
+          ok = inRange && (r === n);
+        }
+
+        if (cfg.type === "text"){
+          const raw = document.getElementById("q3").value;
+          const t = normalizeTR(raw);
+
+          const lenOk = t.length >= cfg.minLen;
+          const mustOk = cfg.mustOneOf.some(k => t.includes(normalizeTR(k)));
+          const anyCount = cfg.any.filter(k => t.includes(normalizeTR(k))).length;
+
+          ok = lenOk && mustOk && anyCount >= 2;
+        }
+
+        if (ok) earned += cfg.points;
+      }
+
+      const percent = total ? Math.round((earned / total) * 100) : 0;
+      resultText.textContent = `Puan: ${earned}/${total} ( %${percent} )`;
+      resultBox.style.display = "block";
+    }
+
+    gradeBtn.addEventListener("click", grade);
+
+    resetBtn.addEventListener("click", () => {
+      resultBox.style.display = "none";
+      resultText.textContent = "";
+      q5num.value = q5range.value;
+    });
+  </script>
+
+</body>
+</html>

@@ -143,7 +143,12 @@
 
   <h2>1. Rastgele Görsel</h2>
   <div class="heroImg">
-    <img id="hero">
+    <!-- ✅ Validator için başlangıç src + alt eklendi (JS yine güncelliyor) -->
+    <img
+      id="hero"
+      src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg"
+      alt="Rastgele seçilen görsel"
+    >
   </div>
 
   <div class="divider"></div>
@@ -191,7 +196,7 @@
       c.className="card";
       c.innerHTML=`
         <div class="imgBox">
-          <img src="${bust(url)}">
+          <img src="${bust(url)}" alt="Rastgele görsel ${i+1}">
           <div class="imgError">Görsel yüklenemedi</div>
         </div>
         <div class="actions">
